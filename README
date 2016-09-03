@@ -1,0 +1,43 @@
+XMP-64 performance experiments
+==============================
+
+This is the source code for a set of performance experiments for the XMOS XMP-64
+board, a general-purpose 64-core parallel computer.  They obtained detailed
+measurements for barrier synchronisations and static and random traffic
+permutation patterns.  Publised documentation of the results can be found on the
+XMOS website: http://www.xmos.com/published/xmp-64-performance-measurements.
+
+Compilation requires the *patched* XMOS 9.9.2 tools or greater. 
+
+For more information on the XMP-64 board visit
+https://www.xmos.com/products/development-kits/xmp-64.
+
+The project contains three main programs:
+ - A 'ping' programs which measures message latency between pairs of nodes
+ - A 'barrier' program which measures the time taken for all nodes to complete a
+   barrier synchronisation.
+ - A 'traffic' program which measures message latency under different traffic
+   permutations
+
+Perhaps most useful is the 'common' directory which includes more general code,
+including:
+ - Timing functions written in assembly used in...
+ - Global clock synchronisation over the hypercube.
+ - General hypercube functions such as minimum and maximum.
+ - A simple pipe communication structure.
+
+Compilation and running
+-----------------------
+
+cd ping
+make
+xrun --io ping.xe
+
+cd barrier
+make
+xrun --io barrier.xe
+
+cd traffic
+make traffic
+make wrapper
+java wrapper.Main
